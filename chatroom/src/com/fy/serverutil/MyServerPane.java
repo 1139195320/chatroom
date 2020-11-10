@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -30,16 +28,20 @@ import com.fy.entity.Users;
 import com.fy.server.FriendListFrame;
 import com.fy.server.start.Server;
 
+/**
+ * @author jack
+ */
 public class MyServerPane {
 	
 	private static JFrame frame;
 	private static JTextField jtf_time,jtf_input;
 	private static JButton jb_ok;
 	public static JTextArea jta;
-	private static JScrollPane jsp;
-    private String control = "";
-    //被监听改变的数据
-    public static String strGet="";
+	private final String control = "";
+	/**
+	 * 被监听改变的数据
+	 */
+	public static String strGet = "";
 
 	public void initPane() {
 		frame=new JFrame("服务器");
@@ -70,8 +72,8 @@ public class MyServerPane {
 		//设置该显示框不可编辑
 		jta.setEditable(false);
 		jta.setCaretPosition(jta.getDocument().getLength());
-		
-		jsp=new JScrollPane(jta);
+
+		JScrollPane jsp = new JScrollPane(jta);
 		jsp.setSize(new Dimension(300,250));
 
 		JPanel sjPanel=new JPanel();
@@ -96,11 +98,11 @@ public class MyServerPane {
 		MyServerTimeThread serverTimeThread=new MyServerTimeThread();
 		serverTimeThread.start();
 		
-		//打开MyPane的数据监视线程
+		// 打开MyPane的数据监视线程
 		MyServerThreadListener listener=new MyServerThreadListener();
 		listener.start();
 		
-		//打开Server.friendline的数据监视线程
+		// 打开Server.friendline的数据监视线程
 		new MyServerFriendLine().start();
 		
 		new FriendListFrame();
@@ -120,14 +122,8 @@ public class MyServerPane {
 				}
 			}
 		});
-		//发送按钮的点击事件
-		jb_ok.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				sendMsg(null);
-			}
-		});
+		// 发送按钮的点击事件
+		jb_ok.addActionListener(e -> sendMsg(null));
 		frame.addWindowListener(new WindowListener() {
 			@Override
 			public void windowOpened(WindowEvent e) {}
@@ -156,30 +152,35 @@ public class MyServerPane {
 	
 	public static void sendMsg(String msg) {
 		//发送
-		String str=jtf_input.getText();
-		if(msg!=null && !msg.equals(""))str = msg;
-		if(str!=null && !str.equals("")){
+		String str = jtf_input.getText();
+		if (msg != null && !"".equals(msg)) {
+			str = msg;
+		}
+		if (str != null && !"".equals(str)) {
 			try {
-				OutputStream out=null;
-				Socket s=null;
+				OutputStream out;
+				Socket s;
 				for (Map.Entry<Users, Socket> entry : Server.uMap.entrySet()) {
-					s=entry.getValue();
+					s = entry.getValue();
 					//获得输出流（给客户端发消息）
-					out=s.getOutputStream();
-					out.write(("---fy"+str).getBytes());
+					out = s.getOutputStream();
+					out.write(("---fy" + str).getBytes());
 					out.flush();
 				}
 			} catch (IOException e1) {
-				strGet="连接错误或中断！\n";
+				strGet = "连接错误或中断！\n";
 				jtf_input.setText("");
 				return;
 			}
-			if(str.substring(0, 1).equals("f"))return;
-			strGet="我说："+str;
+			if ("f".equals(str.substring(0, 1))) {
+				return;
+			}
+			strGet = "我说：" + str;
 			jtf_input.setText("");
-		}else{
-			JOptionPane.showMessageDialog(null, "您的输入不能为空！","【出错啦】", 
-					 JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"您的输入不能为空！", "【出错啦】",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -245,7 +246,7 @@ class MyServerThreadListener extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if(!MyServerPane.strGet.equals("")){
+			if(!"".equals(MyServerPane.strGet)){
 				if(myPane==null){
 					myPane = new MyServerPane();
 				}

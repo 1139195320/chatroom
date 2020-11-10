@@ -14,7 +14,7 @@ import com.fy.serverutil.MyServerThreadRead;
 public class Server {
 
 	//服务器端口号
-	private static final int SERVER_PORT=9001;
+	private static final int SERVER_PORT=8081;
 	
 	//装载用户的集合
 	public static Map<Users, Socket> uMap=new HashMap<Users, Socket>();//users:连接

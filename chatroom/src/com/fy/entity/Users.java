@@ -2,6 +2,9 @@ package com.fy.entity;
 
 import java.sql.Timestamp;
 
+/**
+ * @author jack
+ */
 public class Users {
 
 	private Integer id;

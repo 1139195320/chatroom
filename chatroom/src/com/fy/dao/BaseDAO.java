@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+/**
+ * @author jack
+ */
 public class BaseDAO {
-
-	private static String JDBC_PROPERTIESPATH;
-	private static Properties pps = null;
 
 	private static String URL;
 	private static String USER;
@@ -23,12 +23,11 @@ public class BaseDAO {
 	private static PreparedStatement pst = null;
 
 	static {
-		JDBC_PROPERTIESPATH = BaseDAO.class.getResource("/jdbc.properties").getPath();
-		pps = new Properties();
+		String jdbcPropertiesPath = BaseDAO.class.getResource("/jdbc.properties").getPath();
+		Properties pps = new Properties();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			pps = new Properties();
-			pps.load(new FileInputStream(JDBC_PROPERTIESPATH));
+			pps.load(new FileInputStream(jdbcPropertiesPath));
 			URL = pps.getProperty("jdbc.url");
 			USER = pps.getProperty("jdbc.user");
 			PASSWD = pps.getProperty("jdbc.passwd");
@@ -40,7 +39,7 @@ public class BaseDAO {
 	/**
 	 * 获得数据库连接
 	 * 
-	 * @return
+	 * @return 数据库连接
 	 */
 	private Connection getConn() {
 		try {
@@ -88,12 +87,15 @@ public class BaseDAO {
 
 	public void close() {
 		try {
-			if (st != null)
+			if (st != null) {
 				st.close();
-			if (pst != null)
+			}
+			if (pst != null) {
 				pst.close();
-			if (conn != null)
+			}
+			if (conn != null) {
 				conn.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -101,14 +103,18 @@ public class BaseDAO {
 
 	public void close(ResultSet rs) {
 		try {
-			if (rs != null)
+			if (rs != null) {
 				rs.close();
-			if (st != null)
+			}
+			if (st != null) {
 				st.close();
-			if (pst != null)
+			}
+			if (pst != null) {
 				pst.close();
-			if (conn != null)
+			}
+			if (conn != null) {
 				conn.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

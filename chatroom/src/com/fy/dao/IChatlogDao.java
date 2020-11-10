@@ -4,62 +4,66 @@ import java.util.List;
 
 import com.fy.entity.Chatlog;
 
+/**
+ * @author jack
+ */
 public interface IChatlogDao {
 
 	/**
 	 * 增加一条聊天记录
-	 * @param chatlog
+	 * @param chatlog 聊天记录
 	 * @return （false添加成功，true添加失败）
 	 */
-	public boolean addChatlog(Chatlog chatlog);
+	boolean addChatlog(Chatlog chatlog);
 	/**
-	 * 通过记录id删除一条聊天记录
-	 * @param chatlog
+	 * 通过记录 id 删除一条聊天记录
+	 * @param chatlog 聊天记录
 	 * @return （false删除成功，true删除失败）
 	 */
-	public boolean deleteChatlog(Chatlog chatlog);
+	boolean deleteChatlog(Chatlog chatlog);
 	/**
 	 * 通过记录读取状态删除一条聊天记录
-	 * @param chatlog
+	 * @param readstate 记录读取状态
 	 * @return （false删除成功，true删除失败）
 	 */
-	public boolean deleteChatlogByReadstate(Integer readstate);
+	boolean deleteChatlogByReadstate(Integer readstate);
 	/**
-	 * 通过发送者接收者的名字来修改消息读取状态
-	 * @param name_from
-	 * @param name_to
-	 * @param readstate
-	 * @return
-	 */
-	public boolean updateChatlogReadstateByfronandtoId(Integer fromid,Integer toid ,Integer readstate);
-	/**
-	 * 通过记录id修改该记录读取状态
-	 * @param id
-	 * @param readstate
+	 * 通过发送者接收者的 id 来修改消息读取状态
+	 * @param fromid 发送者 id
+	 * @param toid 接收者 id
+	 * @param readstate 消息读取状态
 	 * @return （true修改成功，false修改失败）
 	 */
-	public boolean updateChatlogReadstate(Integer id,Integer readstate);
+	boolean updateChatlogReadstateByfronandtoId(Integer fromid,Integer toid ,Integer readstate);
 	/**
-	 * 通过发送者id查询记录的集合
-	 * @param fromid
-	 * @return
+	 * 通过记录 id 修改该记录读取状态
+	 * @param id 记录 id 
+	 * @param readstate 消息读取状态
+	 * @return （true修改成功，false修改失败）
 	 */
-	public List<Chatlog> findChatlogByFromid(Integer fromid);
+	boolean updateChatlogReadstate(Integer id,Integer readstate);
 	/**
-	 * 通过接收者id查询记录的集合
-	 * @param toid
-	 * @return
+	 * 通过发送者 id 查询记录的集合
+	 * @param fromid 发送者 id 
+	 * @return 记录的集合
 	 */
-	public List<Chatlog> findChatlogByToid(Integer toid);
+	List<Chatlog> findChatlogByFromid(Integer fromid);
+	/**
+	 * 通过接收者 id 查询记录的集合
+	 * @param toid 接收者 id
+	 * @return 记录的集合
+	 */
+	List<Chatlog> findChatlogByToid(Integer toid);
 	/**
 	 * 通过记录的读取状态查询记录的集合
-	 * @param readstate
-	 * @return
+	 * @param readstate 记录的读取状态
+	 * @return 记录的集合
 	 */
-	public List<Chatlog> findChatlogByReadstate(Integer readstate);
+	List<Chatlog> findChatlogByReadstate(Integer readstate);
 	/**
-	 * 删除数据库中超过n天且已被查看的聊天记录
-	 * @return
+	 * 删除数据库中超过 n 天且已被查看的聊天记录
+	 * @param n 天数
+	 * @return （false删除成功，true删除失败）
 	 */
-	public boolean deleteOuttimeChatlog(Integer n);
+	boolean deleteOuttimeChatlog(Integer n);
 }

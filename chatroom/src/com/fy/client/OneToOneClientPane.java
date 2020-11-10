@@ -143,7 +143,7 @@ public class OneToOneClientPane {
 					showIndex.add(index);
 				}
 				Integer []temp = (Integer[])showIndex.toArray(new Integer[showIndex.size()]);
-				FriendListFrame.jlist.setCellRenderer(new MyCellRenderer(temp));
+				FriendListFrame.jList.setCellRenderer(new MyCellRenderer(temp));
 				//TODO 发消息给服务器该未读消息已看，修改其读取状态
 				String msgToServerStateChange = "{\"name_from\":\"" + toName + "\",\"name_to\":\"" + myName + "\"}";
 				sendMsg(msgToServerStateChange);

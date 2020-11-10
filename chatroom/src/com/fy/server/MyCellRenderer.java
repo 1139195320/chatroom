@@ -7,46 +7,50 @@ import java.awt.Font;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
-public class MyCellRenderer extends DefaultListCellRenderer{
+/**
+ * @author jack
+ */
+public class MyCellRenderer extends DefaultListCellRenderer {
 
 	private int[] offset;
 	private Font font = new Font("楷体", Font.BOLD, 14);
-	
+
 	public MyCellRenderer() {
-		
 	}
-	
+
 	public MyCellRenderer(int[] offset) {
 		this.offset = offset;
 	}
-	
+
 	@Override
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-			boolean cellHasFocus) {
-		if(value != null) {
+	public Component getListCellRendererComponent(JList list,
+												  Object value,
+												  int index,
+												  boolean isSelected,
+												  boolean cellHasFocus) {
+		if (value != null) {
 			String str = value.toString();
 			setText(str);
 			setFont(font);
 			setBackground(Color.WHITE);
-			if(str.endsWith(" | 在线")) {
+			if (str.endsWith(" | 在线")) {
 				setForeground(Color.RED);
-			}else {
+			} else {
 				setForeground(Color.PINK);
 			}
 		}
-		if(isSelected) {
+		if (isSelected) {
 			setForeground(Color.CYAN);
 			setBackground(Color.LIGHT_GRAY);
 		}
-		if(offset!=null && offset.length>0) {
-			for(int i = 0;i < offset.length ; i ++) {
-				if(offset[i] == index) {
+		if (offset != null && offset.length > 0) {
+			for (int item : offset) {
+				if (item == index) {
 					setForeground(Color.GREEN);
 				}
 			}
 		}
 		return this;
 	}
-
 
 }

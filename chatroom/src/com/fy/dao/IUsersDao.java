@@ -4,69 +4,73 @@ import java.util.List;
 
 import com.fy.entity.Users;
 
+/**
+ * @author jack
+ */
 public interface IUsersDao {
 
 	/**
 	 * 查询所有的用户
-	 * @return
+	 * @return 用户
 	 */
-	public List<Users> findAllUsers();
+	List<Users> findAllUsers();
 	/**
 	 * 查询所有在线的用户
-	 * @return
+	 * @return 用户
 	 */
-	public List<Users> findUsersOnline();
+	List<Users> findUsersOnline();
 	/**
 	 * 增加一个新用户
-	 * @param user
+	 * @param user 新增的用户信息
 	 * @return false成功 true失败
 	 */
-	public boolean addUser(Users user);
+	boolean addUser(Users user);
 	/**
 	 * 删除一个用户（通过用户id或用户名）
-	 * @param user
-	 * @return
+	 * @param user 删除的用户信息
+	 * @return false成功 true失败
 	 */
-	public boolean deleteUser(Users user);
+	boolean deleteUser(Users user);
 	/**
 	 * 修改更新一个用户密码（通过用户id或用户名）
-	 * @param user
-	 * @return
+	 * @param user 修改的用户信息
+	 * @return false成功 true失败
 	 */
-	public boolean updateUserPasswd(Users user);
+	boolean updateUserPasswd(Users user);
 	/**
 	 * 修改更新一个用户登陆时间（通过用户id或用户名）
-	 * @param user
-	 * @return
+	 * @param user 修改的用户信息
+	 * @return false成功 true失败
 	 */
-	public boolean updateUserLastlogintime(Users user);
+	boolean updateUserLastlogintime(Users user);
 	/**
 	 * 修改更新一个用户登录IP（通过用户id或用户名）
-	 * @param user
-	 * @return
+	 * @param user 修改的用户信息
+	 * @return false成功 true失败
 	 */
-	public boolean updateUserLastloginip(Users user);
+	boolean updateUserLastloginip(Users user);
 	/**
 	 * 修改更新一个用户在线状态（通过用户id或用户名）
-	 * @param user
-	 * @return
+	 * @param user 修改的用户信息
+	 * @return false成功 true失败
 	 */
-	public boolean updateUserIsonline(Users user);
+	boolean updateUserIsonline(Users user);
 	/**
-	 * 通过用户id查询用户
-	 * @param id
-	 * @return
+	 * 通过用户 id 查询用户
+	 * @param id 用户 id 
+	 * @return 用户
 	 */
-	public Users findUserById(Integer id);
+	Users findUserById(Integer id);
 	/**
 	 * 通过用户名查询用户
-	 * @param name
-	 * @return
+	 * @param name 用户名
+	 * @return 用户
 	 */
-	public Users findUserByName(String name);
+	Users findUserByName(String name);
 	/**
 	 * 通过ID或用户名更新用户信息（上次登陆时间，上次登录IP，是否在线）
+	 * @param user 修改的用户信息
 	 * @return 更新后的该用户对象
 	 */
-	public Users updateUsers(Users user);
+	Users updateUsers(Users user);
 }
