@@ -208,12 +208,14 @@ class MyClientDbMsgThread extends Thread {
 			if (!FriendListFrame.jsonStr_info.equals(FriendListFrame.jsonStr_info_old)) {
 				JSONObject jo = JSONObject.parseObject(FriendListFrame.jsonStr_info);
 				JSONArray ja = jo.getJSONArray("jsonStr_from");
-				for (Object obj : ja) {
-					JSONObject joFrom = (JSONObject) obj;
-					if ("0".equals(joFrom.get("readstate"))) {
-						String name = (String) joFrom.get("name");
-						if (!FriendListFrame.showIndexName.contains(name)) {
-							FriendListFrame.showIndexName.add(name);
+				if (ja != null) {
+					for (Object obj : ja) {
+						JSONObject joFrom = (JSONObject) obj;
+						if ("0".equals(joFrom.get("readstate"))) {
+							String name = (String) joFrom.get("name");
+							if (!FriendListFrame.showIndexName.contains(name)) {
+								FriendListFrame.showIndexName.add(name);
+							}
 						}
 					}
 				}
